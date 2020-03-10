@@ -28,7 +28,7 @@ To do so from the source using Maven, following the setup steps belows:
 
 ```xml
 <dependency>
-  <groupId>net.conjur.api</groupId>
+  <groupId>com.cyberark.conjur.api</groupId>
   <artifactId>conjur-api</artifactId>
   <version>2.1.0</version>
 </dependency>

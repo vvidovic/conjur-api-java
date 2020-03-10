@@ -2,6 +2,8 @@
 set -ex
 set -o pipefail
 
+export VERSION=$(./get-version.sh)
+
 function finish {
   echo '-----------------------test.sh------------------------------'
   echo 'Removing test environment'

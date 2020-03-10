@@ -13,9 +13,20 @@ pipeline {
   }
 
   stages {
+    stage('Fetch tags') {
+      steps {
+        withCredentials(
+          [usernameColonPassword(credentialsId: 'conjur-jenkins-api', variable: 'GITCREDS')]
+        ) {
+          sh '''
+            git fetch --tags `git remote get-url origin | sed -e "s|https://|https://$GITCREDS@|"`
+          '''
+        }
+      }
+    }
     stage('Create and archive the Maven package') {
       steps {
-        echo 'TODO'
+        sh './build.sh'
       }
     }
     stage('Run tests and archive test results') {
@@ -27,13 +38,9 @@ pipeline {
         junit 'target/surefire-reports/*.xml'
       }
     }
-
     stage('Publish the Maven package') {
-      when {
-        branch 'master'
-      }
       steps {
-        echo 'TODO'
+        sh './publish.sh'
       }
     }
   }
